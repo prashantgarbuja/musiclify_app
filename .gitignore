@@ -4,6 +4,7 @@
 *.bak
 *.swp
 *~
+.idea/
 
 # Spring Boot (backend/)
 # IntelliJ IDEA files
