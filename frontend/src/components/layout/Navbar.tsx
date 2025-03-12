@@ -47,16 +47,14 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       // Call backend to logout
-      await fetch(`${apiUrl}/logout`, {
+      const response = await fetch(`${apiUrl}/logout`, {
         method: "GET",
         credentials: "include", // Ensure cookies/session info are sent
-      })
-      .then(() => {
-        window.location.href = `${apiUrl}/?logout`; // Redirect manually
-      })
-      .catch((err) => console.error("Logout failed", err));
+      });
   
-      // Show success toast
+      if (!response.ok) throw new Error("Logout request failed");
+  
+      // Show success toast before redirecting
       toast.success('Successfully logged out', {
         position: 'top-center',
         duration: 3000,
@@ -67,12 +65,13 @@ const Navbar = () => {
         },
       });
   
-      // Navigate to landing page (with logout query param)
+      // Delay navigation slightly to show toast
       setTimeout(() => {
-        navigate('/');
-      }, 500);
+        navigate('/?logout'); // Redirect to landing page with logout param
+      }, 1000); // Wait 1 second for better UX
     } catch (error) {
       console.error("Logout failed:", error);
+      toast.error("Logout failed. Please try again.");
     }
   };
 
