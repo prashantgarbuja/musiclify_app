@@ -1,0 +1,58 @@
+# General
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Spring Boot (backend/)
+# IntelliJ IDEA files
+backend/.idea/
+backend/*.iml
+backend/out/
+backend/target/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.springBeans
+
+# Maven/Gradle build artifacts (depending on your build tool)
+backend/*.jar
+backend/*.war
+backend/*.ear
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn/
+backend/pom.xml.versionsBackup
+backend/build/
+backend/gradle/
+backend/.gradle/
+backend/gradlew
+backend/gradlew.bat
+
+# Environment files (backend)
+backend/.env
+backend/application-*.properties  # e.g., application-dev.properties
+backend/*.keystore
+backend/*.jks
+
+# React + Vite (frontend/)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/vite.config.ts.timestamp-*
+frontend/.env.local
+frontend/.env.*.local
+frontend/*.log
+
+# Cursor-specific (if any)
+frontend/.cursor/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor-specific
+.vscode/
+*.sublime-project
+*.sublime-workspace
