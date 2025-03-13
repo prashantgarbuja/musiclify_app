@@ -11,7 +11,7 @@ const TopArtists = () => {
   const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const titleRef = useFadeInOnScroll(loading);
-  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL;
+  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL?.replace(/\/+$/, ''); // Remove trailing slash;
 
   useEffect(() => {
     const fetchTopArtists = async () => {

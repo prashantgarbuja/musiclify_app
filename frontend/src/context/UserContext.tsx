@@ -43,7 +43,7 @@ export const useUser = () => {
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL;
+  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL?.replace(/\/+$/, ''); // Remove trailing slash;
   import.meta.env.MU
   console.log("URL:"+apiUrl); 
 

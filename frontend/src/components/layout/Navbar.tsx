@@ -10,7 +10,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('top-artists');
   const { userData } = useUser();
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL;
+  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL?.replace(/\/+$/, ''); // Remove trailing slash;
   
   useEffect(() => {
     const handleScroll = () => {

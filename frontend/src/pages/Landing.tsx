@@ -9,7 +9,7 @@ const Landing = () => {
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [authUrl, setAuthUrl] = useState('')
   const navigate = useNavigate()
-  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL;
+  const apiUrl = import.meta.env.VITE_MUSICLIFY_API_URL?.replace(/\/+$/, ''); // Remove trailing slash;
   
   const toggleHowItWorks = () => {
     setShowHowItWorks(!showHowItWorks);
