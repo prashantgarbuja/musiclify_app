@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(spotifyAppConfig.getApp().getFrontendUrl()) // Use frontend URL from properties
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
                 .allowCredentials(true);
     }
 }
