@@ -2,16 +2,15 @@
 
 ## [Live App](https://musiclify.prashantgarbuja.com/)
 
-## Tech Stack
-* Java 17
-* Spring Boot 3.1.4
+## Backend Tech Stack
+* Java 21
+* Spring Boot 3.4.3
 * Maven
 * Spotify API
 * Docker
 
 ## Dependencies
 * Lombok
-* Thymeleaf
 * Spring Web
 * Spring MVC
 * Spring Configuration Processor (Dev tool)
@@ -23,10 +22,14 @@
 * Show recently played tracks
 * Saved albums
 * Saved tracks
-* Newest released tracks
-* Featured playlists
-* Current playing track
-* Searched tracks/playlist/artists
+
+[//]: # (* Newest released tracks)
+
+[//]: # (* Featured playlists)
+
+[//]: # (* Current playing track)
+
+[//]: # (* Searched tracks/playlist/artists)
 
 ## Resources
 
@@ -73,10 +76,6 @@ Now to check your application go to the local host via port 9090:
 http://localhost:9090/
 ```
 
-# Screenshots
-
-![Screenshot1](src/main/resources/static/img/musiclify_demo.png)
-![Screenshot2](src/main/resources/static/img/musiclify_demo1.png)
 
 
 
