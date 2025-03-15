@@ -85,11 +85,11 @@ const HeroSection = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xl font-semibold">{userProfile.followers}</p>
+                    <p className="text-xl font-semibold">{userData?.user?.followers?.total}</p>
                     <p className="text-xs text-music-textSecondary">Followers</p>
                   </div>
                   <div>
-                    <p className="text-xl font-semibold">{userProfile.following}</p>
+                    <p className="text-xl font-semibold">{userData?.user?.following}</p>
                     <p className="text-xs text-music-textSecondary">Following</p>
                   </div>
                 </div>
