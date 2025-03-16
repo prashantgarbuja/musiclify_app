@@ -38,7 +38,7 @@ export interface Playlist {
   };
 }
 
-//dummy user profile details
+//dummy user profile details - do not remove this, I'm using this as default value if non exist.
 export const userProfile = {
   username: "music_lover",
   displayName: "Music Enthusiast",

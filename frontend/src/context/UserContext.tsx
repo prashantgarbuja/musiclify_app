@@ -17,6 +17,7 @@ interface UserData {
     images?: { url: string }[];
     followers?: { href: string | null; total: number };
     following?: number;
+    topGenres?: string[];
     [key: string]: any; // For additional fields like explicit_content
   };
   [key: string]: any; // Allows for future expansion (e.g., topArtists)

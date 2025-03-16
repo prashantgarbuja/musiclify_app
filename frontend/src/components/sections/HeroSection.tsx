@@ -74,7 +74,7 @@ const HeroSection = () => {
                   <Music className="h-4 w-4 text-music-primary" />
                   <span className="text-sm text-music-textSecondary">Top Genre</span>
                 </div>
-                <p className="text-xl font-semibold">{userProfile.topGenres[0]}</p>
+                <p className="text-xl font-semibold">{userData?.user?.topGenres[0]}</p>
                 <p className="text-xs text-music-textSecondary">This month</p>
               </div>
               
@@ -119,7 +119,9 @@ const HeroSection = () => {
               </div>
               
               {/* Floating genre tags */}
-              {userProfile.topGenres.slice(0, 5).map((genre, index) => (
+              {(userData?.user?.topGenres && userData?.user?.topGenres.length > 0 ? userData?.user?.topGenres : userProfile.topGenres)
+              .slice(0, 5)
+              .map((genre, index) => (
                 <div 
                   key={genre}
                   className="absolute bg-music-card px-3 py-1 rounded-full text-sm animate-float"

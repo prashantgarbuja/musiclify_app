@@ -1,9 +1,11 @@
 package com.prashant.musiclify.service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prashant.musiclify.exception.NoAccountDataException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class ProfileDetailService {
 
 	private final RestTemplate restTemplate;
+	private final TopArtistService topArtistService;
 	private static final String URL = "https://api.spotify.com/v1/me";
 
 	public LinkedHashMap getUser(String token) {
@@ -32,7 +35,68 @@ public class ProfileDetailService {
 		if(result != null)
 			result.put("following", getUserTotalFollowing(token));
 
+		List<String> topGenres = getTopGenres(token);
+		result.put("topGenres", topGenres);
+
 		return result;
+	}
+
+	private List<String> getTopGenres(String token) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		// Fetch top artists data
+		Object response = topArtistService.getTopArtists(token, 2);
+
+		// Return empty list if response is null
+		if (response == null) {
+			return Collections.emptyList();
+		}
+
+		try {
+			// Convert Object to JsonNode
+			JsonNode jsonResponse = mapper.valueToTree(response);
+
+			// Check if the response has the expected structure
+			if (!jsonResponse.has("items") || !jsonResponse.get("items").isArray()) {
+				return Collections.emptyList();
+			}
+
+			// Map to count genre occurrences
+			Map<String, Integer> genreCount = new HashMap<>();
+
+			// Process each artist
+			JsonNode items = jsonResponse.get("items");
+			for (int i = 0; i < items.size(); i++) {
+				JsonNode artist = items.get(i);
+
+				// Process genres only if the artist has them
+				if (artist.has("genres") && artist.get("genres").isArray()) {
+					JsonNode genres = artist.get("genres");
+
+					for (int j = 0; j < genres.size(); j++) {
+						String genreName = genres.get(j).asText().trim();
+						if (!genreName.isEmpty()) {
+							genreCount.put(genreName, genreCount.getOrDefault(genreName, 0) + 1);
+						}
+					}
+				}
+			}
+
+			// Sort by frequency and get top genres
+			List<String> sortedGenres = genreCount.entrySet()
+					.stream()
+					.sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+					.map(Map.Entry::getKey)
+					.limit(5) // Limit to 5 results directly in the stream
+					.collect(Collectors.toList());
+
+			System.out.println("Sorted Genres:"+sortedGenres);
+			return sortedGenres; // This list will have at most 5 elements
+		} catch (Exception e) {
+			// Log the exception for debugging
+			System.err.println("Error processing top genres: " + e.getMessage());
+			return Collections.emptyList(); // Return empty list on any error
+		}
 	}
 
 	public String getUsername(String token) {
