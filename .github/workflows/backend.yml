@@ -19,6 +19,8 @@ jobs:
 
       - name: Build Docker image for Backend
         run: |
+          whoami
+          dir
           cd backend
           docker build -t musiclify-backend:latest .
 
