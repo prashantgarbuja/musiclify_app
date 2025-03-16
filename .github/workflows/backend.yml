@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'backend/**'   # This ensures the workflow triggers on PRs for the 'backend' directory
+  workflow_dispatch:   # This enables manual trigger of the workflow for debugging.
 
 jobs:
   build:
