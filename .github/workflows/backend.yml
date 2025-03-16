@@ -19,8 +19,8 @@ jobs:
 
       - name: Build Docker image for Backend
         run: |
-          whoami
-          dir
+          # whoami
+          # dir
           cd backend
           docker build -t musiclify-backend:latest .
 
@@ -28,7 +28,7 @@ jobs:
         run: |
           docker stop musiclify-backend-container || true
           docker rm musiclify-backend-container || true
-          docker ps -a  # Log the status of all containers for debugging
+          # docker ps -a  # Log the status of all containers for debugging
       
       - name: Run New Container
         run: docker run -d --name musiclify-backend-container -p ${{ secrets.PORT_NUMBER }}:${{ secrets.PORT_NUMBER }} -e ${{ secrets.SPOTIFY_CLIENT_ID }} -e ${{ secrets.FRONTEND_URL }} musiclify-backend
