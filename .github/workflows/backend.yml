@@ -1,0 +1,39 @@
+name: Backend Docker Build & Deploy
+
+on:
+  push:
+    paths:
+      - 'backend/**'   # This will trigger the workflow only for changes inside the 'backend' directory
+  pull_request:
+    paths:
+      - 'backend/**'   # This ensures the workflow triggers on PRs for the 'backend' directory
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Docker image for Backend
+        run: |
+          cd backend
+          docker build -t musiclify-backend:latest .
+
+      - name: Stop and Remove Old Container
+        run: docker stop musiclify-backend-container || true && docker rm musiclify-backend-container || true
+      
+      - name: Run New Container
+        run: docker run -d --name musiclify-backend-container -p ${{ secrets.PORT_NUMBER }}:${{ secrets.PORT_NUMBER }} -e ${{ secrets.SPOTIFY_CLIENT_ID }} -e ${{ secrets.FRONTEND_URL }} musiclify-backend
